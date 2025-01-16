@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>crearcuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+
+  <ion-item>
+    <ion-input label="User" placeholder="Ingrese un nombre de usuario"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="password" label="Contraseña" placeholder="Ingrese una contraseña"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input type="password" label="Confirmar Contraseña" placeholder="Repita una contraseña"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input label="Correo electrónico" placeholder="Ingrese su correo electronico"></ion-input>
+  </ion-item>
+  <ion-button expand="block" color="success">
+    Crear Cuenta
+  </ion-button>
+
+  <ion-button [routerLink]="['/login']" expand="block" color="danger">
+    Volver 
+  </ion-button>
+</ion-content>
