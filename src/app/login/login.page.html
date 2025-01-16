@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Bienvenido
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-input label="Login"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-input label="User" placeholder="Ingrese su nombre de usuario"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" label="Contraseña" placeholder="Ingrese su contraseña"></ion-input>
+    </ion-item>
+    <ion-button expand="block" >
+      Login
+    </ion-button>
+ 
+    <ion-button (click)="navegar()" expand="block" color="success">
+      Crear Cuenta
+    </ion-button>
+ 
+  </ion-list>
+</ion-content>
