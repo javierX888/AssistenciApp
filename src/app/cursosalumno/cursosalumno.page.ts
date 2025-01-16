@@ -12,6 +12,7 @@ import { IonicModule } from '@ionic/angular';
 export class CursosalumnoPage implements OnInit {
 
   nombre:string="";
+  
  
    constructor(private router:Router) {
      this.nombre =this.router.getCurrentNavigation()?.extras.state?.["nombre"];
