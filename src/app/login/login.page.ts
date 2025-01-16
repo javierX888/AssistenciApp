@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { Router,NavigationExtras, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +11,26 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
+  
+  validar:boolean= true;
+
+  navegar(){
+    console.log("ingresamos al metodo");
+
+    let setData : NavigationExtras={
+      state: {
+        nombre:"Yan",
+        apellido: "Pux"
+      }
+    };
+
+    if(this.validar){
+      this.router.navigate(["/cursosalumno"],setData);
+    }else{
+      this.router.navigate(["/cursosprofesor"],setData);
+    }
+  }
 
   ngOnInit() {
   }

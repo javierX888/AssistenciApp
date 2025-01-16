@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router,NavigationExtras, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -10,8 +11,11 @@ import { IonicModule } from '@ionic/angular';
 })
 export class CursosalumnoPage implements OnInit {
 
-  constructor() { }
-
+  nombre:string="";
+ 
+   constructor(private router:Router) {
+     this.nombre =this.router.getCurrentNavigation()?.extras.state?.["nombre"];
+    }
   ngOnInit() {
   }
 

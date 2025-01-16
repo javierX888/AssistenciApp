@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 @Component({
@@ -11,9 +11,14 @@ import { IonicModule } from '@ionic/angular';
 })
 export class CrearcuentaPage implements OnInit {
 
-  constructor() { }
+  nombre:string="";
+
+  constructor(private router:Router) {
+    this.nombre =this.router.getCurrentNavigation()?.extras.state?.["nombre"];
+   }
 
   ngOnInit() {
   }
 
 }
+;
