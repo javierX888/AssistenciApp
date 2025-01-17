@@ -12,17 +12,18 @@
       <ion-input label="Login"></ion-input>
     </ion-item>
   
+    <form [formGroup]="usuario">
     <ion-item>
-      <ion-input label="User" placeholder="Ingrese su nombre de usuario"></ion-input>
+      <ion-input label="User" placeholder="Ingrese su nombre de usuario" formControlName="user"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="password" label="Contraseña" placeholder="Ingrese su contraseña"></ion-input>
+      <ion-input type="password" label="Contraseña" placeholder="Ingrese su contraseña" formControlName="pass"></ion-input>
     </ion-item>
-    <ion-button expand="block" >
+    <ion-button (click)="navegar()" expand="block" >
       Login
     </ion-button>
- 
-    <ion-button (click)="navegar()" expand="block" color="success">
+    </form>
+    <ion-button expand="block" color="success">
       Crear Cuenta
     </ion-button>
  

@@ -14,7 +14,7 @@ import { CursosprofesorPage } from './cursosprofesor.page';
     FormsModule,
     IonicModule,
     CursosprofesorPageRoutingModule
-  ],
+],
   declarations: []
 })
 export class CursosprofesorPageModule {}
