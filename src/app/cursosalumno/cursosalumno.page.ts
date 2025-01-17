@@ -10,7 +10,9 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule,RouterModule]
 })
 export class CursosalumnoPage implements OnInit {
-
+  
+    introImageUrl = '/assets/cam.webp'; 
+  
   nombre:string="";
 
  

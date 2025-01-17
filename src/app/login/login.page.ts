@@ -37,7 +37,11 @@ export class LoginPage implements OnInit {
 
    const loginMap: { [key: string]: string } = {
      'prof:1234': '/cursosprofesor',
-     'estu:1234': '/cursosalumno'
+     'prof2:1234': '/cursosprofesor',
+     'prof3:1234': '/cursosprofesor',
+     'estu:1234': '/cursosalumno',
+     'estu2:1234': '/cursosalumno',
+     'estu3:1234': '/cursosalumno',
      };
 
    const userPassKey = `${this.usuario.value.user}:${this.usuario.value.pass}`;

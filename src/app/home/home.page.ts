@@ -10,8 +10,9 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule,RouterModule]
   
 })
+
 export class HomePage {
 
   constructor() {}
-
+  introImageUrl = '/assets/intro.jpg';
 }

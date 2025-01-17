@@ -15,15 +15,20 @@
     </ion-card-header>
   
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      Aquí puedes revisrar tu asistencia, escoge un curso.
     </ion-card-content>
   </ion-card>
-  <ion-item>
-    <ion-input type="password" label="Confirmar Contraseña" placeholder="Repita una contraseña"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input label="Correo electrónico" placeholder="Ingrese su correo electronico"></ion-input>
-  </ion-item>
+  <img src="../../assets/cam.webp" alt="Intro Image">
+  <ion-button [routerLink]="['/login']" expand="block" >
+    Curso 1
+  </ion-button>
+  <ion-button [routerLink]="['/login']" expand="block" >
+    Curso 2
+  </ion-button>
+  <ion-button [routerLink]="['/login']" expand="block" >
+    Curso 3
+  </ion-button>
+  
   <ion-button [routerLink]="['/login']" expand="block" color="success">
     Atrás
   </ion-button>
