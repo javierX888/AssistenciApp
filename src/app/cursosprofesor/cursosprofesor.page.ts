@@ -6,11 +6,12 @@ import { IonicModule } from '@ionic/angular';
   selector: 'app-cursosprofesor',
   templateUrl: './cursosprofesor.page.html',
   styleUrls: ['./cursosprofesor.page.scss'],
-  imports: [IonicModule],
+  imports: [IonicModule,RouterModule],
   standalone:true
 })
 export class CursosprofesorPage implements OnInit {
 
+  introImageUrl = '/assets/qr.png'; 
   nombre:string="";
 
    constructor(private router:Router) {

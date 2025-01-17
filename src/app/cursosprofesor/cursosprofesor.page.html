@@ -5,9 +5,32 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">cursosprofesor</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Bienvenido, {{nombre}}</ion-card-title>
+    <ion-card-subtitle>Asistencia</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    Aquí puedes revisrar tu asistencia, escoge un curso.
+  </ion-card-content>
+</ion-card>
+
+<img src="../../assets/qr.png" alt="Intro Image"> 
+<ion-button [routerLink]="['/login']" expand="block" >
+  Curso 1
+</ion-button>
+<ion-button [routerLink]="['/login']" expand="block" >
+  Curso 2
+</ion-button>
+<ion-button [routerLink]="['/login']" expand="block" >
+  Curso 3
+</ion-button>
+
+<ion-button [routerLink]="['/login']" expand="block" color="success">
+  Atrás
+</ion-button>
+
+<ion-button [routerLink]="['/login']" expand="block" color="danger">
+  Volver a login
+</ion-button>
 </ion-content>
