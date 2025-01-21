@@ -11,14 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'crearcuenta',
-    loadChildren: () => import('./crearcuenta/crearcuenta.module').then( m => m.CrearcuentaPageModule)
-  },
+   {
+     path: 'login',
+     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+   },
+   {
+     path: 'crearcuenta',
+     loadChildren: () => import('./crearcuenta/crearcuenta.module').then( m => m.CrearcuentaPageModule)
+   },
   {
     path: 'cursosalumno',
     loadChildren: () => import('./cursosalumno/cursosalumno.module').then( m => m.CursosalumnoPageModule)
@@ -27,6 +27,23 @@ const routes: Routes = [
     path: 'cursosprofesor',
     loadChildren: () => import('./cursosprofesor/cursosprofesor.module').then( m => m.CursosprofesorPageModule)
   },
+  {
+    path: 'controlasistencia',
+    loadChildren: () => import('./controlasistencia/controlasistencia.module').then( m => m.ControlasistenciaPageModule)
+  },
+  {
+    path: 'asistenciaalumno',
+    loadChildren: () => import('./asistenciaalumno/asistenciaalumno.module').then( m => m.AsistenciaalumnoPageModule)
+  },
+  {
+    path: 'crearcuenta',
+    loadChildren: () => import('./crearcuenta/crearcuenta.module').then( m => m.CrearcuentaPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+
  
 ];
 
