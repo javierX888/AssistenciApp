@@ -19,6 +19,7 @@ export class AuthserviceService {
    * false: usuario no autenticado
    */
   private authenticated = false;
+  private userRole: string = '';
   
   /**
    * Constructor del servicio
@@ -48,5 +49,13 @@ export class AuthserviceService {
    */
   logout() {
     this.authenticated = false;
+  }
+
+  setUserRole(role: string) {
+    this.userRole = role;
+  }
+
+  getUserRole(): string {
+    return this.userRole;
   }
 }

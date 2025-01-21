@@ -85,20 +85,22 @@ export class LoginPage implements OnInit {
       };
 
       // Mapa de rutas según credenciales
-      const loginMap: { [key: string]: string } = {
-        'prof:1234': '/cursosprofesor',
-        'prof2:1234': '/cursosprofesor',
-        'prof3:1234': '/cursosprofesor',
-        'estu:1234': '/cursosalumno',
-        'estu2:1234': '/cursosalumno',
-        'estu3:1234': '/cursosalumno'
-      };
+    const loginMap: { [key: string]: { route: string; role: string } } = {
+      'prof:1234': { route: '/cursosprofesor', role: 'profesor' },
+      'prof2:1234': { route: '/cursosprofesor', role: 'profesor' },
+      'prof3:1234': { route: '/cursosprofesor', role: 'profesor' },
+      'estu:1234': { route: '/cursosalumno', role: 'alumno' },
+      'estu2:1234': { route: '/cursosalumno', role: 'alumno' },
+      'estu3:1234': { route: '/cursosalumno', role: 'alumno' }
+    };
 
       // Validación y redirección
       const userPassKey = `${this.usuario.value.user}:${this.usuario.value.pass}`;
+
       if (loginMap[userPassKey]) {
         this.authservice.login();
-        this.router.navigate([loginMap[userPassKey]], setData);
+        this.authservice.setUserRole(loginMap[userPassKey].role);
+        this.router.navigate([loginMap[userPassKey].route], setData);
       } else {
         this.validar = false;
         this.presentAlert('Error', 'Usuario o contraseña incorrecta');

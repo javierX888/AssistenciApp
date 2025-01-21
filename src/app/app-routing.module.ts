@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login', // Redirección por defecto
+    redirectTo: 'home', // Redirección por defecto
     pathMatch: 'full'
   },
   {
