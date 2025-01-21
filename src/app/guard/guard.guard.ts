@@ -14,7 +14,7 @@ import { inject } from '@angular/core';
  * Guard para protección de rutas
  * @param route Información de la ruta actual
  * @param state Estado de la navegación
- * @returns true si está autenticado, redirección a login si no
+ * @returns true si está autenticado, redirección a home si no
  */
 export const guardGuard: CanActivateFn = (route, state) => {
   // Inyección de servicios necesarios
@@ -25,6 +25,6 @@ export const guardGuard: CanActivateFn = (route, state) => {
   if (AuthService.isLogged()) {
     return true; // Usuario autenticado
   } else {
-    return router.createUrlTree(['/login']); // Redirección a login
+    return router.createUrlTree(['/home']); // Redirección a home
   }
 };
