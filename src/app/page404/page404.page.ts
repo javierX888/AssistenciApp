@@ -1,11 +1,14 @@
 /**
- * Importaciones necesarias para el componente
- * Component: Decorador que define la metadata del componente
- * OnInit: Interface para el ciclo de vida del componente
- * IonicModule: Módulo principal de Ionic
+ * Componente Page404
+ * Propósito: Página de error para rutas no encontradas
+ * Características:
+ * - Navegación a home
+ * - Diseño responsive
+ * - Mensaje informativo
  */
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 /**
  * Decorador @Component
@@ -34,13 +37,19 @@ export class Page404Page implements OnInit {
    * Constructor de la clase
    * No requiere inyección de dependencias
    */
-  constructor() { }
+  constructor(private router: Router) { }
 
     /**
    * Método del ciclo de vida
    * Se ejecuta después de la creación del componente
    */
-  ngOnInit() {
+  ngOnInit() {}
+  
+    /**
+   * Método para volver a la página de inicio
+   * Navega a la ruta /home
+   */
+  volverAHome() {
+    this.router.navigate(['/home']);
   }
-
 }
