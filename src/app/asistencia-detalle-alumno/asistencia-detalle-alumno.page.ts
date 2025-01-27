@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 interface AsistenciaClase {
   fecha: string;
@@ -9,9 +9,9 @@ interface AsistenciaClase {
 }
 
 @Component({
-  selector: 'app-asistenciaalumno',
-  templateUrl: './asistenciaalumno.page.html',
-  styleUrls: ['./asistenciaalumno.page.scss'],
+  selector: 'asistencia-detalle-alumno',
+  templateUrl: './asistencia-detalle-alumno.page.html',
+  styleUrls: ['./asistencia-detalle-alumno.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule]
 })
@@ -38,11 +38,11 @@ export class AsistenciaalumnoPage implements OnInit {
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {
-      curso: string,
+      nombreCurso: string,
       codigo: string,
       seccion: string
     };
-    this.nombreCurso = state?.curso || 'Curso no encontrado';
+    this.nombreCurso = state?.nombreCurso  || 'Curso no encontrado';
     this.codigoCurso = state?.codigo || 'Código no encontrado';
     this.seccionCurso = state?.seccion || 'Sección no encontrada';
   }
@@ -61,16 +61,18 @@ export class AsistenciaalumnoPage implements OnInit {
   }
 
   async escanearQR() {
-    const alert = await this.alertController.create({
-      header: 'Escanear QR',
-      message: 'Escaneando código QR para registrar asistencia...',
-      buttons: ['OK']
-    });
-
-    await alert.present();
+    // Por ahora no escaneamos, solo navegamos
+    const navExtras: NavigationExtras = {
+      state: {
+        alumnoId: 2,
+        codigo: this.codigoCurso,
+        seccion: this.seccionCurso
+      }
+    };
+    this.router.navigate(['/registrar-asistencia'], navExtras);
   }
 
   volverACursos() {
-    this.router.navigate(['/cursosalumno']);
+    this.router.navigate(['/curso-lista-alumno']);
   }
 }

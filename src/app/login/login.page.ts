@@ -1,113 +1,86 @@
-/**
- * Importaciones necesarias para el funcionamiento del login
- * - Component, OnInit: Core de Angular
- * - IonicModule, AlertController: Componentes de Ionic
- * - Router, NavigationExtras: Manejo de navegación
- * - FormControl, FormGroup: Manejo de formularios
- * - AuthService: Servicio de autenticación
- */
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, AlertController } from '@ionic/angular';
-import { Router, NavigationExtras, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { Router, RouterModule, NavigationExtras } from '@angular/router';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthserviceService } from '../services/authservice.service';
 import { CommonModule } from '@angular/common';
+import { ConsumoAPIService } from '../services/consumo-api.service';
+import { AuthserviceService } from '../services/authservice.service';
 
-/**
- * Decorador del componente
- * Configuración standalone y módulos necesarios
- */
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, RouterModule, ReactiveFormsModule, CommonModule]
+  imports: [
+    IonicModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule
+  ]
 })
 export class LoginPage implements OnInit {
-  /** Variable para control de validación */
-  validar: boolean = true;
 
-  /** 
-   * Formulario reactivo para login
-   * Campos:
-   * - user: nombre de usuario (4-20 caracteres)
-   * - pass: contraseña (4-20 caracteres)
-   */
   usuario = new FormGroup({
-    user: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]),
-    pass: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(20)])
+    user: new FormControl('', [Validators.required]),
+    pass: new FormControl('', [Validators.required])
   });
 
-  /**
-   * Constructor
-   * @param router Servicio de navegación
-   * @param authservice Servicio de autenticación
-   * @param alertController Controlador de alertas
-   */
   constructor(
     private router: Router,
-    private authservice: AuthserviceService,
-    private alertController: AlertController
-  ) { }
+    private consumoAPI: ConsumoAPIService,
+    private authService: AuthserviceService
+  ) {}
 
-  /** Inicialización del componente */
-  ngOnInit() { }
+  ngOnInit() {}
 
-  /**
-   * Método para mostrar alertas
-   * @param header Título de la alerta
-   * @param message Mensaje a mostrar
-   */
-  async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header: header,
-      message: message,
-      buttons: ['OK']
-    });
-    await alert.present();
-  }
-
-  /**
-   * Método principal de navegación y autenticación
-   * - Valida credenciales
-   * - Redirecciona según tipo de usuario
-   * - Maneja errores de autenticación
-   */
   navegar() {
-    try {
-      // Configuración de datos para navegación
-      let setData: NavigationExtras = {
-        state: {
-          id: this.usuario.value.user,
-          pass: this.usuario.value.pass
+    const username = this.usuario.value.user!;
+    const password = this.usuario.value.pass!;
+
+    // Llamamos la API Flask /login
+    this.consumoAPI.loginApi(username, password).subscribe({
+      next: (resp: any) => {
+        // Retorna: { id, user, nombre, correo, tipoPerfil } si es correcto
+        console.log('Login response:', resp);
+
+        // Marcamos como logueado
+        this.authService.login();
+
+        // Si es tipoPerfil=1 => profesor
+        if (resp.tipoPerfil === 1) {
+          this.authService.setUserRole('profesor');
+
+          // Pasamos el ID y nombre del profesor a la siguiente página
+          const navExtras: NavigationExtras = {
+            state: {
+              profesorId: resp.id, 
+              nombreProfesor: resp.nombre 
+            }
+          };
+          this.router.navigate(['/curso-lista-profesor'], navExtras);
+
+        // Si es tipoPerfil=2 => alumno
+        } else if (resp.tipoPerfil === 2) {
+          this.authService.setUserRole('alumno');
+
+        //Pasamos ID y onmbre del alumno a la siguiente página
+          const navExtras:NavigationExtras={
+            state:{
+              alumnoId:resp.id,
+              nombreAlumno:resp.nombre
+            }
+          };
+          
+          // Ejemplo sin state:
+          this.router.navigate(['/curso-lista-alumno'], navExtras);
+        } else {
+          console.warn('Perfil desconocido:', resp);
         }
-      };
-
-      // Mapa de rutas según credenciales
-    const loginMap: { [key: string]: { route: string; role: string } } = {
-      'prof:1234': { route: '/cursosprofesor', role: 'profesor' },
-      'prof2:1234': { route: '/cursosprofesor', role: 'profesor' },
-      'prof3:1234': { route: '/cursosprofesor', role: 'profesor' },
-      'estu:1234': { route: '/cursosalumno', role: 'alumno' },
-      'estu2:1234': { route: '/cursosalumno', role: 'alumno' },
-      'estu3:1234': { route: '/cursosalumno', role: 'alumno' }
-    };
-
-      // Validación y redirección
-      const userPassKey = `${this.usuario.value.user}:${this.usuario.value.pass}`;
-
-      if (loginMap[userPassKey]) {
-        this.authservice.login();
-        this.authservice.setUserRole(loginMap[userPassKey].role);
-        this.router.navigate([loginMap[userPassKey].route], setData);
-      } else {
-        this.validar = false;
-        this.presentAlert('Error', 'Usuario o contraseña incorrecta');
+      },
+      error: (err) => {
+        console.error('Error de login', err);
+        // Manejar credenciales inválidas (ej: alert)
       }
-    } catch (error: any) {
-      console.error('Error en login:', error);
-      this.presentAlert('Error', 'Ocurrió un error al intentar iniciar sesión');
-    }
+    });
   }
 }

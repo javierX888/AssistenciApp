@@ -1,31 +1,42 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Bienvenido
-    </ion-title>
+    <ion-title>Bienvenido</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
+    <!-- Campo de prueba, no vinculado al form: -->
     <ion-item>
       <ion-input label="Login"></ion-input>
     </ion-item>
-  
+
+    <!-- Formulario con formGroup="usuario" -->
     <form [formGroup]="usuario">
-    <ion-item>
-      <ion-input label="User" placeholder="Ingrese su nombre de usuario" formControlName="user"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="password" label="Contraseña" placeholder="Ingrese su contraseña" formControlName="pass"></ion-input>
-    </ion-item>
-    <ion-button (click)="navegar()" expand="block" >
-      Login
-    </ion-button>
+      <ion-item>
+        <ion-input 
+          label="User"
+          placeholder="Ingrese su nombre de usuario"
+          formControlName="user">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          type="password"
+          label="Contraseña"
+          placeholder="Ingrese su contraseña"
+          formControlName="pass">
+        </ion-input>
+      </ion-item>
+
+      <ion-button (click)="navegar()" expand="block">
+        Login
+      </ion-button>
     </form>
+
     <ion-button [routerLink]="['/crearcuenta']" expand="block" color="success">
       Crear Cuenta
     </ion-button>
- 
   </ion-list>
 </ion-content>

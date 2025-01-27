@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
-import { AsistenciaalumnoPageRoutingModule } from './asistenciaalumno-routing.module';
-
-import { AsistenciaalumnoPage } from './asistenciaalumno.page';
+import { CursosprofesorPageRoutingModule } from './curso-lista-profesor-routing.module';
+// Ojo: no declares la página si es standalone
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AsistenciaalumnoPageRoutingModule
-  ],
-  declarations: []
+    CursosprofesorPageRoutingModule
+  ]
 })
-export class AsistenciaalumnoPageModule {}
+export class CursosprofesorPageModule {}

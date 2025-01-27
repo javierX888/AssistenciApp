@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { ControlasistenciaPageRoutingModule } from './controlasistencia-routing.module';
+import { AsistenciaalumnoPageRoutingModule } from './asistencia-detalle-alumno-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ControlasistenciaPageRoutingModule
+    AsistenciaalumnoPageRoutingModule
   ],
   declarations: []
 })
-export class ControlasistenciaPageModule {}
+export class AsistenciaalumnoPageModule {}

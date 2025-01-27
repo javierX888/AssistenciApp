@@ -1,0 +1,14 @@
+.status-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.present-dot {
+  background-color: green;
+}
+.absent-dot {
+  background-color: red;
+}
