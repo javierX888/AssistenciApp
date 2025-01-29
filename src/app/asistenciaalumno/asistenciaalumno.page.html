@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-start">Asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Información del curso -->
+  <ion-item lines="none">
+    <ion-label class="ion-text-start">
+      <h2>{{ nombreCurso }}</h2>
+      <h3>{{ codigoCurso }}</h3>
+      <p>Sección: {{ seccionCurso }}</p>
+    </ion-label>
+  </ion-item>
+
+  <!-- Botón Escanear QR -->
+  <div class="ion-padding">
+    <ion-button expand="block" color="primary" (click)="escanearQR()" class="scan-button">
+      <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+      Escanear QR para registrar asistencia
+    </ion-button>
+  </div>
+
+  <!-- Lista de asistencias -->
+  <ion-list>
+    <ion-item *ngFor="let asistencia of asistencias">
+      <ion-label [ngClass]="asistencia.estado === 'P' ? 'presente' : 'ausente'">
+        {{ asistencia.fecha }} ({{ asistencia.estado }})
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item lines="none">
+    <ion-label class="ion-text-start">
+      <p>------------------------------------------</p>
+      <h2>Total asistencia {{ calcularPorcentajeAsistencia() }}</h2>
+    </ion-label>
+  </ion-item>
+  
+  <ion-button expand="block" color="danger" (click)="volverACursos()">
+    VOLVER A CURSOS
+  </ion-button>
+</ion-content>

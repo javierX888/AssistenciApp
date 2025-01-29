@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detalle Curso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <!-- QR del curso -->
+  <div style="text-align: center;">
+    <!-- Componente de angularx-qrcode -->
+    <qrcode [qrdata]="qrData" [width]="150" [errorCorrectionLevel]="'M'"></qrcode>
+
+    <!-- Nombre del curso -->
+    <h3>{{ nombreCurso }}</h3>
+    <p>ID Curso: {{ cursoId }}</p>
+  </div>
+
+  <!-- Tabla de alumnos -->
+  <table style="width: 100%; text-align: left; margin-top: 1rem;">
+    <thead>
+      <tr>
+        <th style="width: 20%;">RUT</th>
+        <th style="width: 40%;">Nombre</th>
+        <th style="width: 40%;">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let alumno of alumnos">
+        <td>{{ alumno.id }}</td>
+        <td>{{ alumno.nombre }}</td>
+        <td>
+          <!-- Puntos de color según status -->
+          <span 
+            class="status-dot"
+            [ngClass]="{
+              'present-dot': alumno.status === 1,
+              'absent-dot':  alumno.status === 0
+            }"
+          ></span>
+          <span>
+            {{ (alumno.status === 1) ? 'Presente' : 'Ausente' }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Contenedor para centrar el botón -->
+  <div class="ion-text-center" style="margin-top: 1.5rem;">
+    <ion-button color="danger" (click)="volverACursos()">
+      <ion-icon slot="start" name="arrow-back"></ion-icon>
+      VOLVER A CURSOS
+    </ion-button>
+  </div>
+
+</ion-content>

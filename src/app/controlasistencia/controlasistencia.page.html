@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-start">Control de asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-item lines="none">
+      <ion-label class="ion-text-start">
+        <h2>{{ nombreCurso }}</h2>
+        <h3>{{ codigoCurso }}</h3>
+        <p>Sección: {{ seccionCurso }}</p>
+      </ion-label>
+    </ion-item>
+    
+    <ion-list>
+      <ion-item *ngFor="let estudiante of estudiantes" (click)="toggleClases(estudiante)">
+        <ion-label>
+          <h2 [ngClass]="{'en-riesgo': estaEnRiesgo(estudiante.asistencia)}">
+            {{ estudiante.nombre }} ({{ estudiante.asistencia }}) ({{ estudiante.estado }})
+          </h2>
+          <div *ngIf="estudiante.mostrarClases">
+            <p *ngFor="let clase of estudiante.clases" 
+               class="clase-detalle"
+               [ngClass]="clase.estado === 'P' ? 'presente' : 'ausente'">
+              {{ clase.fecha }} - {{ clase.estado }}
+            </p>
+          </div>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+  
+  <ion-button expand="block" color="danger" (click)="volverACursos()">VOLVER A CURSOS</ion-button>
+</ion-content>

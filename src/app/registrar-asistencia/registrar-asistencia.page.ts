@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 // Importa los objetos de Capacitor Camera
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
