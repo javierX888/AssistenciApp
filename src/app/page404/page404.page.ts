@@ -31,7 +31,7 @@ import { Router } from '@angular/router';
  * Página de error 404 - No encontrado
  * Implementa OnInit para inicialización del componente
  */
-export class Page404Page implements OnInit {
+export class PageNotFound  implements OnInit {
 
     /**
    * Constructor de la clase

@@ -69,8 +69,8 @@ const routes: Routes = [
   
   {
     path: 'page404',
-    loadChildren: () => import('./page404/page404.module')
-      .then(m => m.Page404PageModule)
+    loadComponent: () => import('./page404/page404.page')
+      .then(m => m.PageNotFound )
   },
 
   { 

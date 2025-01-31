@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ConsumoAPIService {
 
-  private baseUrl = 'https://1hcfx3pg-5000.brs.devtunnels.ms/'; // Ajusta si es otra IP/puerto
-  // private baseUrl = 'http://127.0.0.1:5000'; // Ajusta si es otra IP/puerto
+  //private baseUrl = 'https://1hcfx3pg-5000.brs.devtunnels.ms/'; // Ajusta si es otra IP/puerto
+   private baseUrl = 'http://127.0.0.1:5000'; // Ajusta si es otra IP/puerto
 
   constructor(private http: HttpClient) {}
 
