@@ -38,3 +38,57 @@ Para lanzar los test unitarios (Jasmine + Karma):
 
 ng test --watch=false
 Los spec.ts de cada componente/servicio se ejecutarán y verás el reporte por consola o en Chrome Headless.
+
+Test unitarios
+Para lanzar los test unitarios (Jasmine + Karma):
+
+ng test --watch=false
+Los spec.ts de cada componente/servicio se ejecutarán y verás el reporte por consola o en Chrome Headless.
+
+API en Flask
+El back-end (directorio API/) contiene apitest.py y un requirements.txt. Para ejecutarla localmente:
+
+Entrar a la carpeta:
+
+cd API
+Crear venv (opcional):
+
+python -m venv venv
+source venv/bin/activate       # Mac/Linux
+venv\Scripts\activate          # Windows
+Instalar dependencias:
+
+pip install -r requirements.txt
+Ejecutar la API (en modo desarrollo):
+
+python apitest.py
+Por defecto iniciará en http://127.0.0.1:5000.
+
+Nota: La API está alojada en Railway. La URL base se configura en src\app\services\consumo-api.service.ts. en caso de quere ejecutarla localmente
+
+
+Generar APK para Android
+Build de la app web (genera carpeta www/):
+
+ionic build
+Sincronizar assets con la plataforma Android (genera android/):
+
+npx cap sync android
+Abrir en Android Studio:
+
+npx cap open android
+En Android Studio, Build > Build Bundle(s)/APK(s) > Build APK(s).
+El APK se guardará en android/app/build/outputs/apk/debug/... (o release si escoges una versión firmada).
+
+Despliegue de la API (Railway)
+El archivo Procfile o start command en Railway lanza python apitest.py.
+Asegúrate de tener en apitest.py:
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
+Ajusta la variable baseUrl en consumo-api.service.ts apuntando a tu dominio Railway.
+
+
+Autores
+Javier Gacitúa / Gianfranco Puccio
