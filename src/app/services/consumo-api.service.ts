@@ -1,38 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Alumno, Curso, Profesor, Usuario } from '../models/asistencia.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsumoAPIService {
 
-  private baseUrl = 'https://api-assistenciaapp-production.up.railway.app'; // API PÚBLICA Railway
-  // private baseUrl = 'http://127.0.0.1:5000'; // Ajusta si es otra IP/puerto
+  private baseUrl = environment.apiUrl;
 
 
 
   constructor(private http: HttpClient) {}
 
   // Login
-  loginApi(username: string, password: string): Observable<any> {
+  loginApi(username: string, password: string): Observable<Usuario> {
     const body = { user: username, password: password };
-    return this.http.post(`${this.baseUrl}/login`, body);
+    return this.http.post<Usuario>(`${this.baseUrl}/login`, body);
   }
 
   // Profesores
-  getProfesores(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/profesores`);
+  getProfesores(): Observable<Profesor[]> {
+    return this.http.get<Profesor[]>(`${this.baseUrl}/profesores`);
   }
 
   // Cursos de un profesor
-  getCursosProfesor(profesorId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/profesores/${profesorId}/cursos`);
+  getCursosProfesor(profesorId: number): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.baseUrl}/profesores/${profesorId}/cursos`);
   }
 
   // Alumnos de un curso (lista)
-  getAlumnosCurso(profesorId: number, cursoId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/profesores/${profesorId}/cursos/${cursoId}/alumnos`);
+  getAlumnosCurso(profesorId: number, cursoId: number): Observable<Alumno[]> {
+    return this.http.get<Alumno[]>(`${this.baseUrl}/profesores/${profesorId}/cursos/${cursoId}/alumnos`);
   }
 
   // Registrar asistencia
@@ -43,12 +44,12 @@ export class ConsumoAPIService {
     fecha: string
   ): Observable<any> {
     const body = { alumno_id: alumnoId, codigo, seccion, fecha };
-    return this.http.post(`${this.baseUrl}/registrar_asistencia`, body);
+    return this.http.post<any>(`${this.baseUrl}/registrar_asistencia`, body);
   }
 
   // Cursos de un alumno
-  getCursosAlumno(alumnoId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/alumnos/${alumnoId}/cursos`);
+  getCursosAlumno(alumnoId: number): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${this.baseUrl}/alumnos/${alumnoId}/cursos`);
   }
 
   // NUEVO: Un solo alumno en un curso, con asistencias
@@ -56,9 +57,10 @@ export class ConsumoAPIService {
     profesorId: number,
     cursoId: number,
     alumnoId: number
-  ): Observable<any> {
-    return this.http.get(
+  ): Observable<Alumno> {
+    return this.http.get<Alumno>(
       `${this.baseUrl}/profesores/${profesorId}/cursos/${cursoId}/alumnos/${alumnoId}`
     );
   }
 }
+
