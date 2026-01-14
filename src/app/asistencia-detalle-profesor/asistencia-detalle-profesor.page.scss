@@ -1,14 +1,79 @@
-.status-dot {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-right: 5px;
-  border-radius: 50%;
+.clase-inactiva {
+  text-align: center;
+  padding: 20px;
+  
+  p {
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
 }
 
-.present-dot {
-  background-color: green;
+.clase-activa {
+  .qr-container {
+    text-align: center;
+    margin-bottom: 16px;
+    
+    .fecha-clase {
+      margin-top: 12px;
+      font-weight: bold;
+      color: var(--ion-color-primary);
+    }
+  }
 }
-.absent-dot {
-  background-color: red;
+
+.asistencia-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  
+  .stats-text {
+    font-size: 12px;
+    color: var(--ion-color-medium);
+  }
+}
+
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+// Clases para items según porcentaje
+.item-danger {
+  --background: rgba(var(--ion-color-danger-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-danger);
+}
+
+.item-warning {
+  --background: rgba(var(--ion-color-warning-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-warning);
+}
+
+.item-success {
+  --background: rgba(var(--ion-color-success-rgb), 0.1);
+  border-left: 4px solid var(--ion-color-success);
+}
+
+// Iconos de avatar con colores
+.avatar-danger {
+  color: var(--ion-color-danger);
+  font-size: 40px;
+}
+
+.avatar-warning {
+  color: var(--ion-color-warning);
+  font-size: 40px;
+}
+
+.avatar-success {
+  color: var(--ion-color-success);
+  font-size: 40px;
+}
+
+ion-chip {
+  ion-icon {
+    margin-right: 4px;
+  }
 }
