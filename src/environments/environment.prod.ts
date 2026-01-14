@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api-assistenciaapp-production.up.railway.app'
+  apiUrl: 'https://api-assistencia-app.vercel.app'
 };
