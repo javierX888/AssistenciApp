@@ -5,17 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <!-- Campo de prueba, no vinculado al form: -->
-    <ion-item>
-      <ion-input label="Login"></ion-input>
-    </ion-item>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Iniciar Sesión</h1>
+      <p>Ingresa tus credenciales para continuar</p>
+    </div>
 
     <!-- Formulario con formGroup="usuario" -->
-    <form [formGroup]="usuario">
+    <form [formGroup]="usuario" class="login-form">
       <ion-item>
         <ion-input 
-          label="User"
+          label="Usuario"
           placeholder="Ingrese su nombre de usuario"
           formControlName="user">
         </ion-input>
@@ -30,13 +30,15 @@
         </ion-input>
       </ion-item>
 
-      <ion-button (click)="navegar()" expand="block">
-        Login
-      </ion-button>
-    </form>
+      <div class="button-group">
+        <ion-button (click)="navegar()" expand="block" color="primary">
+          Iniciar Sesión
+        </ion-button>
 
-    <ion-button [routerLink]="['/crearcuenta']" expand="block" color="success">
-      Crear Cuenta
-    </ion-button>
-  </ion-list>
+        <ion-button [routerLink]="['/crearcuenta']" expand="block" color="success" fill="outline">
+          Crear Cuenta
+        </ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>
