@@ -58,6 +58,12 @@ export class ConsumoAPIService {
     return this.http.get<Curso[]>(`${this.baseUrl}/alumnos/${alumnoId}/cursos`);
   }
 
+  // Subir foto de asistencia
+  uploadFotoAsistencia(alumnoId: number, imagenBase64: string): Observable<any> {
+    const body = { alumno_id: alumnoId, imagen: imagenBase64 };
+    return this.http.post<any>(`${this.baseUrl}/upload_foto`, body);
+  }
+
   // NUEVO: Un solo alumno en un curso, con asistencias
   getAlumnoDeUnCurso(
     profesorId: number,

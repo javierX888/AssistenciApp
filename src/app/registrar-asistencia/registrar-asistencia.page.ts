@@ -45,12 +45,13 @@ export class RegistrarAsistenciaPage implements OnInit {
     try {
       const image = await Camera.getPhoto({
         quality: 90,
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.Base64, // Cambiar a Base64 para enviar a Cloudinary
         source: CameraSource.Camera
       });
       
-      this.fotoTomada = image.webPath || null;
-      console.log('Foto tomada:', image);
+      // Convertir a formato compatible con Cloudinary
+      this.fotoTomada = `data:image/jpeg;base64,${image.base64String}`;
+      console.log('Foto tomada en Base64');
       
       await this.mostrarAlerta('Foto Capturada', '¿Deseas registrar tu asistencia con esta foto?');
     } catch (err) {
@@ -67,28 +68,39 @@ export class RegistrarAsistenciaPage implements OnInit {
 
     const fechaActual = new Date().toLocaleDateString('es-CL');
     
-    this.consumoAPI.registrarAsistencia(
-      this.alumnoId,
-      this.codigo,
-      this.seccion,
-      fechaActual
-    ).subscribe({
-      next: async (resp) => {
-        this.asistenciaRegistrada = true;
-        const alert = await this.alertController.create({
-          header: 'Éxito',
-          message: 'Asistencia registrada correctamente',
-          buttons: [{
-            text: 'OK',
-            handler: () => {
-              this.volverACursos();
-            }
-          }]
+    // Primero subir la foto a Cloudinary
+    this.consumoAPI.uploadFotoAsistencia(this.alumnoId, this.fotoTomada).subscribe({
+      next: (respFoto) => {
+        console.log('Foto subida:', respFoto.url);
+        
+        // Luego registrar la asistencia con la URL de la foto
+        this.consumoAPI.registrarAsistencia(
+          this.alumnoId,
+          this.codigo,
+          this.seccion,
+          fechaActual
+        ).subscribe({
+          next: async (resp) => {
+            this.asistenciaRegistrada = true;
+            const alert = await this.alertController.create({
+              header: 'Éxito',
+              message: 'Asistencia y foto registradas correctamente',
+              buttons: [{
+                text: 'OK',
+                handler: () => {
+                  this.volverACursos();
+                }
+              }]
+            });
+            await alert.present();
+          },
+          error: async (err) => {
+            await this.mostrarAlerta('Error', 'No se pudo registrar la asistencia');
+          }
         });
-        await alert.present();
       },
       error: async (err) => {
-        await this.mostrarAlerta('Error', 'No se pudo registrar la asistencia');
+        await this.mostrarAlerta('Error', 'No se pudo subir la foto al servidor');
       }
     });
   }
