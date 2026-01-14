@@ -1,29 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>crearcuenta {{nombre}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Cuenta</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+  <div class="register-container">
+    <div class="register-header">
+      <ion-icon name="person-add" class="register-icon"></ion-icon>
+      <h1>Registro de Usuario</h1>
+      <p>Completa el formulario para crear tu cuenta</p>
+    </div>
 
-  <ion-item>
-    <ion-input label="User" [(ngModel)]="userInput" placeholder="Ingrese un nombre de usuario"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input type="password" [(ngModel)]="passInput" label="Contraseña" placeholder="Ingrese una contraseña"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input type="password" [(ngModel)]="confirmPassInput" label="Confirmar Contraseña" placeholder="Repita una contraseña"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input label="Correo electrónico" [(ngModel)]="emailInput" placeholder="Ingrese su correo electronico"></ion-input>
-  </ion-item>
-  <ion-button expand="block" color="success" (click)="crearCuenta()">
-    Crear Cuenta
-  </ion-button>
+    <form class="register-form">
+      <ion-item lines="full">
+        <ion-input 
+          label="Usuario" 
+          [(ngModel)]="userInput" 
+          placeholder="Ingrese un nombre de usuario"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-input 
+          type="password" 
+          [(ngModel)]="passInput" 
+          label="Contraseña" 
+          placeholder="Ingrese una contraseña"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-input 
+          type="password" 
+          [(ngModel)]="confirmPassInput" 
+          label="Confirmar Contraseña" 
+          placeholder="Repita la contraseña"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-input 
+          type="email"
+          label="Correo electrónico" 
+          [(ngModel)]="emailInput" 
+          placeholder="ejemplo@correo.com"
+          [ngModelOptions]="{standalone: true}">
+        </ion-input>
+      </ion-item>
 
-  <ion-button [routerLink]="['/login']" expand="block" color="danger">
-    Volver 
-  </ion-button>
+      <div class="button-group">
+        <ion-button expand="block" color="success" (click)="crearCuenta()">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          Crear Cuenta
+        </ion-button>
+
+        <ion-button [routerLink]="['/login']" expand="block" fill="clear" color="medium">
+          <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+          Volver al Login
+        </ion-button>
+      </div>
+    </form>
+  </div>
 </ion-content>

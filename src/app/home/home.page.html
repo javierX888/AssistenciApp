@@ -1,16 +1,44 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title size="large">Pagina inicial</ion-title>
+    <ion-title size="large">AsistenciApp</ion-title>
   </ion-toolbar>
-
 </ion-header>
-<ion-content [fullscreen]="true">
-  
-  <img src="../../assets/intro.jpg" alt="Intro Image">
 
-  <ion-button [routerLink]="['/login']" expand="block" color="success">
-    Ingresar
-  </ion-button>
-  
+<ion-content [fullscreen]="true">
+  <div class="home-container">
+    <div class="welcome-section">
+      <div class="logo-container">
+        <ion-icon name="checkmark-done-circle" class="app-logo"></ion-icon>
+      </div>
+      <h1>Bienvenido a AsistenciApp</h1>
+      <p class="subtitle">Gestión de asistencia moderna y eficiente</p>
+    </div>
+
+    <div class="image-container">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80" alt="Estudiantes" class="main-image">
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <ion-icon name="qr-code-outline"></ion-icon>
+        <p>Registro con QR</p>
+      </div>
+      <div class="feature-item">
+        <ion-icon name="time-outline"></ion-icon>
+        <p>Tiempo real</p>
+      </div>
+      <div class="feature-item">
+        <ion-icon name="school-outline"></ion-icon>
+        <p>Gestión de cursos</p>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <ion-button [routerLink]="['/login']" expand="block" color="primary" size="large">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Comenzar
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
