@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="ion-text-start">Bienvenido, {{ nombre }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="abrirPerfil()">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController, ActionSheetController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router, NavigationExtras } from '@angular/router';
 import { ConsumoAPIService } from '../services/consumo-api.service';
@@ -22,7 +22,9 @@ export class CursosprofesorPage implements OnInit {
 
   constructor(
     private consumoAPI: ConsumoAPIService,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController,
+    private actionSheetController: ActionSheetController
   ) {
     // Aquí recuperas data desde login
     const navExtras = this.router.getCurrentNavigation()?.extras.state;
@@ -61,5 +63,59 @@ export class CursosprofesorPage implements OnInit {
 
   volverALogin() {
     this.router.navigate(['/login']);
+  }
+
+  async abrirPerfil() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones de Perfil',
+      buttons: [
+        {
+          text: 'Cambiar Foto de Perfil',
+          icon: 'camera-outline',
+          handler: () => {
+            this.cambiarFotoPerfil();
+          }
+        },
+        {
+          text: 'Ver Información',
+          icon: 'information-circle-outline',
+          handler: () => {
+            this.mostrarInfoPerfil();
+          }
+        },
+        {
+          text: 'Cerrar Sesión',
+          icon: 'log-out-outline',
+          role: 'destructive',
+          handler: () => {
+            this.volverALogin();
+          }
+        },
+        {
+          text: 'Cancelar',
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  async cambiarFotoPerfil() {
+    const alert = await this.alertController.create({
+      header: 'Cambiar Foto de Perfil',
+      message: 'Esta funcionalidad permite subir una foto desde tu dispositivo.',
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async mostrarInfoPerfil() {
+    const alert = await this.alertController.create({
+      header: 'Mi Perfil',
+      message: `Nombre: ${this.nombre}\nID: ${this.profesorId}\nTipo: Profesor`,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }
