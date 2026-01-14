@@ -206,6 +206,29 @@ def login():
     else:
         return jsonify({"message": "Credenciales incorrectas"}), 401
 
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.json
+    username = data.get('user')
+    password = data.get('password')
+    correo = data.get('correo')
+    nombre = data.get('nombre', username) # Si no viene nombre, usamos el user
+    
+    # Verificar si el usuario ya existe
+    if any(u['user'] == username for u in usuarios):
+        return jsonify({"message": "El usuario ya existe"}), 400
+    
+    nuevo_usuario = {
+        "id": len(usuarios) + 1,
+        "user": username,
+        "password": password,
+        "nombre": nombre,
+        "perfil": 2,  # 2 para alumno por defecto
+        "correo": correo
+    }
+    usuarios.append(nuevo_usuario)
+    return jsonify({"message": "Usuario creado con éxito"}), 201
+
 @app.route('/profesores', methods=['GET'])
 def obtener_profesores():
     return jsonify(profesores), 200

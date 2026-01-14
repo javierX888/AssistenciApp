@@ -8,18 +8,18 @@
   
 
   <ion-item>
-    <ion-input label="User" placeholder="Ingrese un nombre de usuario"></ion-input>
+    <ion-input label="User" [(ngModel)]="userInput" placeholder="Ingrese un nombre de usuario"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="password" label="Contraseña" placeholder="Ingrese una contraseña"></ion-input>
+    <ion-input type="password" [(ngModel)]="passInput" label="Contraseña" placeholder="Ingrese una contraseña"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input type="password" label="Confirmar Contraseña" placeholder="Repita una contraseña"></ion-input>
+    <ion-input type="password" [(ngModel)]="confirmPassInput" label="Confirmar Contraseña" placeholder="Repita una contraseña"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-input label="Correo electrónico" placeholder="Ingrese su correo electronico"></ion-input>
+    <ion-input label="Correo electrónico" [(ngModel)]="emailInput" placeholder="Ingrese su correo electronico"></ion-input>
   </ion-item>
-  <ion-button expand="block" color="success">
+  <ion-button expand="block" color="success" (click)="crearCuenta()">
     Crear Cuenta
   </ion-button>
 

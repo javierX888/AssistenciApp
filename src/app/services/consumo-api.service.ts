@@ -21,6 +21,12 @@ export class ConsumoAPIService {
     return this.http.post<Usuario>(`${this.baseUrl}/login`, body);
   }
 
+  // Registro de usuario
+  registerApi(user: string, password: string, correo: string): Observable<any> {
+    const body = { user, password, correo };
+    return this.http.post<any>(`${this.baseUrl}/register`, body);
+  }
+
   // Profesores
   getProfesores(): Observable<Profesor[]> {
     return this.http.get<Profesor[]>(`${this.baseUrl}/profesores`);
