@@ -1,18 +1,62 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/curso-lista-alumno"></ion-back-button>
+    </ion-buttons>
     <ion-title>Registrar Asistencia</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <p>Cámara</p>
-  <img src="assets/icon/camera.png" alt="Mock camera">
+  <div class="registro-container">
+    <div class="info-section">
+      <h2>Información del Curso</h2>
+      <ion-item lines="none">
+        <ion-label>
+          <p><strong>Código:</strong> {{ codigo }}</p>
+          <p><strong>Sección:</strong> {{ seccion }}</p>
+        </ion-label>
+      </ion-item>
+    </div>
 
-  <ion-button expand="block" (click)="tomarFoto()">
-    Abrir cámara
-  </ion-button>  
+    <div class="camera-section">
+      <div class="photo-container" *ngIf="!fotoTomada">
+        <ion-icon name="camera" class="camera-icon"></ion-icon>
+        <p>Toma una foto para registrar tu asistencia</p>
+      </div>
 
-  <ion-button expand="block" color="danger" (click)="volverACursos()">
-    Volver
-  </ion-button>
+      <div class="photo-preview" *ngIf="fotoTomada">
+        <img [src]="fotoTomada" alt="Foto de asistencia">
+        <ion-icon name="checkmark-circle" class="success-icon" *ngIf="asistenciaRegistrada"></ion-icon>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <ion-button 
+        expand="block" 
+        (click)="tomarFoto()" 
+        [disabled]="asistenciaRegistrada">
+        <ion-icon slot="start" name="camera-outline"></ion-icon>
+        {{ fotoTomada ? 'Tomar otra foto' : 'Abrir cámara' }}
+      </ion-button>
+
+      <ion-button 
+        expand="block" 
+        color="success" 
+        (click)="registrarAsistencia()"
+        [disabled]="!fotoTomada || asistenciaRegistrada">
+        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+        Confirmar Asistencia
+      </ion-button>
+
+      <ion-button 
+        expand="block" 
+        fill="clear" 
+        color="medium" 
+        (click)="volverACursos()">
+        <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+        Volver
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ConsumoAPIService } from '../services/consumo-api.service';
 
 // Importa los objetos de Capacitor Camera
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
@@ -19,9 +20,13 @@ export class RegistrarAsistenciaPage implements OnInit {
   alumnoId: number = 0;
   codigo: string = '';
   seccion: string = '';
+  fotoTomada: string | null = null;
+  asistenciaRegistrada: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private consumoAPI: ConsumoAPIService,
+    private alertController: AlertController
   ) {
     // Recuperar datos pasados con NavigationExtras
     const navData = this.router.getCurrentNavigation()?.extras.state;
@@ -39,18 +44,62 @@ export class RegistrarAsistenciaPage implements OnInit {
   async tomarFoto() {
     try {
       const image = await Camera.getPhoto({
-        quality: 90,                   // Calidad de la foto (0-100)
-        resultType: CameraResultType.Uri,  // Cómo retornará el plugin la imagen (Uri/Base64/etc.)
-        source: CameraSource.Camera    // Fuente: cámara (puede ser "Prompt", "Photos", etc.)
+        quality: 90,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera
       });
+      
+      this.fotoTomada = image.webPath || null;
       console.log('Foto tomada:', image);
-
-      // Por ejemplo, image.webPath es una ruta que puedes colocar en un <img [src]="image.webPath">
-      // En un dispositivo real, se abrirá la cámara nativa.
-      // En la web/PC, se abrirá el diálogo para elegir archivos como fallback.
+      
+      await this.mostrarAlerta('Foto Capturada', '¿Deseas registrar tu asistencia con esta foto?');
     } catch (err) {
       console.error('Error al tomar foto:', err);
+      await this.mostrarAlerta('Error', 'No se pudo tomar la foto');
     }
+  }
+
+  async registrarAsistencia() {
+    if (!this.fotoTomada) {
+      await this.mostrarAlerta('Error', 'Primero debes tomar una foto');
+      return;
+    }
+
+    const fechaActual = new Date().toLocaleDateString('es-CL');
+    
+    this.consumoAPI.registrarAsistencia(
+      this.alumnoId,
+      this.codigo,
+      this.seccion,
+      fechaActual
+    ).subscribe({
+      next: async (resp) => {
+        this.asistenciaRegistrada = true;
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Asistencia registrada correctamente',
+          buttons: [{
+            text: 'OK',
+            handler: () => {
+              this.volverACursos();
+            }
+          }]
+        });
+        await alert.present();
+      },
+      error: async (err) => {
+        await this.mostrarAlerta('Error', 'No se pudo registrar la asistencia');
+      }
+    });
+  }
+
+  async mostrarAlerta(header: string, message: string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   volverACursos() {

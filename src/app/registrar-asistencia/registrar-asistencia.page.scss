@@ -1,0 +1,86 @@
+.registro-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.info-section {
+  margin-bottom: 20px;
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    margin-bottom: 12px;
+  }
+
+  ion-item {
+    --background: var(--ion-color-light);
+    --border-radius: 8px;
+    margin-bottom: 8px;
+  }
+}
+
+.camera-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.photo-container {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--ion-color-light);
+  border-radius: 16px;
+  border: 2px dashed var(--ion-color-medium);
+
+  .camera-icon {
+    font-size: 80px;
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 14px;
+  }
+}
+
+.photo-preview {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .success-icon {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 48px;
+    color: var(--ion-color-success);
+    background: white;
+    border-radius: 50%;
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+
+  ion-button {
+    --border-radius: 12px;
+    font-weight: 600;
+  }
+}
