@@ -5,9 +5,17 @@ Aplicación móvil híbrida desarrollada con **Ionic y Angular** para la gestió
 *   Login diferenciado para profesor/alumno.
 *   Registro de nuevos usuarios (alumnos).
 *   Listado de cursos según rol de usuario.
-*   Detalle de asistencia con datos en tiempo real.
-*   Generación de código QR (profesor).
-*   Escaneo de QR (alumno).
+*   Detalle de asistencia con estadísticas y porcentajes en tiempo real.
+*   Visualización con colores según rendimiento (rojo <70%, amarillo 70-80%, verde 80-100%).
+*   Control de clases: iniciar/finalizar clase (profesor).
+*   Justificación de inasistencias (profesor).
+*   Generación de código QR dinámico (profesor).
+*   Escaneo de QR y captura de foto con cámara (alumno).
+*   **Almacenamiento permanente de fotos en Cloudinary**.
+*   Menú de perfil con opciones de usuario con captura de foto mediante cámara nativa.
+*   Subida permanente de fotos a **Cloudinary** (CDN).
+*   **Estadísticas de asistencia** con porcentajes y código de colores (verde, amarillo, rojo).
+*   **Control de clases:** iniciar/finalizar clase, justificar inasistencias.
 *   Test unitarios configurados (Jasmine + Karma).
 
 ## Requisitos previos
@@ -31,6 +39,13 @@ Aplicación móvil híbrida desarrollada con **Ionic y Angular** para la gestió
     ionic serve
     ```
     La app se abrirá en `http://localhost:8100`.
+La API incluye:
+*   Autenticación y registro de usuarios
+*   Gestión de cursos y asistencias
+*   Registro de clases (incrementa contador de todos los alumnos del curso)
+*   **Integración con Cloudinary** para almacenamiento permanente de fotos
+*   Endpoints RESTful con CORS habilitado
+
 
 ## Backend (API)
 La API de este proyecto se encuentra en un repositorio separado para facilitar su escalabilidad y despliegue:
@@ -40,14 +55,45 @@ Para desarrollo local, asegúrate de que la API esté corriendo en `http://local
 
 ## Configuración de Entornos (Environments)
 La aplicación utiliza archivos de entorno para manejar la URL de la API:
-*   **Desarrollo:** [src/environments/environment.ts](src/environments/environment.ts) apunta a Localhost.
+*   **Desarrollo:** [src/environm
+4.  Asegúrate de que [environment.prod.ts](src/environments/environment.prod.ts) apunte a tu API en producción.
+
+**Despliegue de la API:**
+La API también se despliega en Vercel. Configura las siguientes variables de entorno:
+*   `CLOUDINARY_CLOUD_NAME`
+*   `CLOUDINARY_API_KEY`
+*   `CLOUDINARY_API_SECRET`ents/environment.ts](src/environments/environment.ts) apunta a Localhost.
 *   **Producción:** [src/environments/environment.prod.ts](src/environments/environment.prod.ts) debe apuntar a la URL de tu API desplegada en Vercel o Railway.
 
 ## Despliegue en Vercel
 Este repositorio está optimizado para desplegarse en **Vercel**:
 1.  Importa el repositorio en Vercel.
 2.  **Output Directory:** `www`.
-3.  **Command:** `npm run build`.
+3. Tecnologías utilizadas
+*   **Frontend:** Ionic 19, Angular 19, Capacitor (Camera API)
+*   **Backend:** Flask (Python), Flask-CORS
+*   **Almacenamiento:** Cloudinary (fotos)
+*   **Deployment:** Vercel (frontend y backend)
+*   **Control de versiones:** Git, GitHub
+
+## Estructura del proyecto
+```
+src/
+├── app/
+│   ├── services/           # Servicios (API, auth)
+│   ├── models/             # Interfaces TypeScript
+│   ├── guards/             # Guards de autenticación
+│   ├── login/              # Página de login
+│   ├── home/               # Dashboard principal
+│   ├── crearcuenta/        # Registro de usuarios
+│   ├── curso-lista-*/      # Listado de cursos (profesor/alumno)
+│   ├── asistencia-detalle-*/ # Detalle con estadísticas
+│   └── registrar-asistencia/ # Escaneo QR + foto
+├── environments/           # Configuración dev/prod
+└── assets/                 # Recursos estáticos
+```
+
+##  **Command:** `npm run build`.
 
 ## Generar APK para Android
 1.  Build de la app: `ionic build`.
